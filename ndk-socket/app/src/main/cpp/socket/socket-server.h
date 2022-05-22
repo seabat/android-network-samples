@@ -2,8 +2,9 @@
 #define NDK_SOCKET_SOCKET_SERVER_H
 
 #include <jni.h>
+#include "msg-listener.h"
 
-class SocketServer {
+class SocketServer : public IMsgListener {
 private:
     //variables
     static SocketServer* server_;
@@ -20,8 +21,7 @@ public:
     static SocketServer* createInstance(jobject jServer);
     static SocketServer* getInstance();
     void run();
-    void callback(std::string msg);
-
+    void callback(std::string msg) override;
     static void close();
 };
 

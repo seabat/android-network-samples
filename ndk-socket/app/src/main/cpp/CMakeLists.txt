@@ -27,6 +27,7 @@ add_library( # Sets the name of the library.
         jni-socket-server.cpp
         socket/socket-client.cpp
         socket/socket-server.cpp
+        socket/loop-tcp-ipv4.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a

@@ -1,6 +1,7 @@
 #include <thread>
 #include "socket-server.h"
 #include "jni-ref.h"
+#include "loop-tcp-ipv4.h"
 
 SocketServer* SocketServer::server_;
 
@@ -27,7 +28,8 @@ SocketServer::~SocketServer() {
 void SocketServer::run() {
     std::thread serverThread([this]() {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
-        this->callback("Hello");
+        std::shared_ptr<LoopTcpIpv4> loop = std::make_shared<LoopTcpIpv4>(this);
+        loop->run();
         return;
     });
     serverThread.detach();
