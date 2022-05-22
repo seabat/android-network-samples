@@ -16,3 +16,7 @@ Java_dev_seabat_socket_SocketServer_closeJni(JNIEnv *env, jobject thiz) {
     SocketServer::close();
 }
 
+jint JNI_OnLoad(JavaVM* vm, void* reserved) {
+    JniRef::createInstance(vm);
+    return JNI_VERSION_1_6;
+}
