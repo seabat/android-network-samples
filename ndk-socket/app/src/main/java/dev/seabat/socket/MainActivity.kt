@@ -1,10 +1,14 @@
 package dev.seabat.socket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.HandlerCompat
 import dev.seabat.socket.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +31,14 @@ class MainActivity : AppCompatActivity() {
 
         server = SocketServer(object : SocketServerListener {
             override fun onReceive(msg: String) {
-                binding.sampleText.text = "From Server: $msg"
+                if (Thread.currentThread() != this@MainActivity.application.mainLooper.thread) {
+                    val mainThreadHandler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
+                    mainThreadHandler.post(Runnable {
+                        binding.sampleText.text = "From Server: $msg"
+                    })
+                } else {
+                    binding.sampleText.text = "From Server: $msg"
+                }
                 Log.v("SocketServer", "receive:$msg")
             }
         })
@@ -35,7 +46,14 @@ class MainActivity : AppCompatActivity() {
 
         client = SocketClient(object : SocketClientListener {
             override fun onReceive(msg: String) {
-                binding.sampleText.text = "From Client: $msg"
+                if (Thread.currentThread() != this@MainActivity.application.mainLooper.thread) {
+                    val mainThreadHandler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
+                    mainThreadHandler.post(Runnable {
+                        binding.sampleText.text = "From Client: $msg"
+                    })
+                } else {
+                    binding.sampleText.text = "From Client: $msg"
+                }
                 Log.v("SocketClient", "receive:$msg")
             }
         })
