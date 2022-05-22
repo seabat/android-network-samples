@@ -5,7 +5,6 @@ JniRef* JniRef::ref_;
 JniRef::JniRef(JavaVM* vm)
 : vm_(vm)
 {
-    vm->GetEnv(reinterpret_cast<void**>(&this->env_), JNI_VERSION_1_6);
 }
 
 JniRef* JniRef::createInstance(JavaVM* vm) {
@@ -16,6 +15,9 @@ JniRef* JniRef::createInstance(JavaVM* vm) {
 }
 
 JniRef* JniRef::getInstance() {
+    JniRef::ref_->vm_->GetEnv(reinterpret_cast<void**>(&JniRef::ref_->env_), JNI_VERSION_1_6);
+    //NOTE: 実行スレッドに対応した JNIEnv にする
+
     return JniRef::ref_;
 }
 

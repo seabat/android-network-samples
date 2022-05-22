@@ -53,4 +53,5 @@ target_link_libraries( # Specifies the target library.
         # included in the NDK.
         ${log-lib})
 
-include_directories(${PROJECT_SOURCE_DIR}/socket)
+include_directories(${PROJECT_SOURCE_DIR}
+        ${PROJECT_SOURCE_DIR}/socket)

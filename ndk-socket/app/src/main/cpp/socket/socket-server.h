@@ -20,6 +20,7 @@ public:
     static SocketServer* createInstance(jobject jServer);
     static SocketServer* getInstance();
     void run();
+    void callback(std::string msg);
 
     static void close();
 };
