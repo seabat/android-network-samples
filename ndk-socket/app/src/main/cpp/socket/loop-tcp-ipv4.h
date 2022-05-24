@@ -7,10 +7,12 @@
 class LoopTcpIpv4 {
 private:
     IMsgListener* listener_;
+    bool stopFlg_;
 
 public:
     LoopTcpIpv4(IMsgListener* listener);
     void run();
+    void stop();
 };
 
 

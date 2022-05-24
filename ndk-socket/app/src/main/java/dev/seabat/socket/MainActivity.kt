@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Example of a call to a native method
-        binding.sampleText.text = stringFromJNI()
+        binding.serverText.text = stringFromJNI()
         binding.sendButton.setOnClickListener {
             client.sendAsync("Hello")
         }
@@ -34,10 +34,10 @@ class MainActivity : AppCompatActivity() {
                 if (Thread.currentThread() != this@MainActivity.application.mainLooper.thread) {
                     val mainThreadHandler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
                     mainThreadHandler.post(Runnable {
-                        binding.sampleText.text = "From Server: $msg"
+                        binding.serverText.text = "From Server: $msg"
                     })
                 } else {
-                    binding.sampleText.text = "From Server: $msg"
+                    binding.serverText.text = "From Server: $msg"
                 }
                 Log.v("SocketServer", "receive:$msg")
             }
@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity() {
                 if (Thread.currentThread() != this@MainActivity.application.mainLooper.thread) {
                     val mainThreadHandler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
                     mainThreadHandler.post(Runnable {
-                        binding.sampleText.text = "From Client: $msg"
+                        binding.clientText.text = "From Client: $msg"
                     })
                 } else {
-                    binding.sampleText.text = "From Client: $msg"
+                    binding.clientText.text = "From Client: $msg"
                 }
                 Log.v("SocketClient", "receive:$msg")
             }

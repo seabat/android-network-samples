@@ -13,7 +13,7 @@ Java_dev_seabat_socket_SocketServer_runJni(JNIEnv *env, jobject thiz, jobject jS
 extern "C"
 JNIEXPORT void JNICALL
 Java_dev_seabat_socket_SocketServer_closeJni(JNIEnv *env, jobject thiz) {
-    SocketServer::close();
+    SocketServer::stop();
 }
 
 jint JNI_OnLoad(JavaVM* vm, void* reserved) {

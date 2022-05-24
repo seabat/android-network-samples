@@ -22,13 +22,16 @@ SocketServer::SocketServer(jobject jServer)
 }
 
 SocketServer::~SocketServer() {
+    this->loop->stop();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(this->j_server_);
+    this->j_server_ = nullptr;
 }
 
 void SocketServer::run() {
     std::thread serverThread([this]() {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
         std::shared_ptr<LoopTcpIpv4> loop = std::make_shared<LoopTcpIpv4>(this);
+        this->setLoop(loop);
         loop->run();
         return;
     });
@@ -61,8 +64,14 @@ void SocketServer::callback(std::string msg) {
     if (attached) JniRef::getInstance()->getJavaVm()->DetachCurrentThread();
 }
 
-void SocketServer::close() {
+void SocketServer::setLoop(std::shared_ptr<LoopTcpIpv4> loop){
+    this->loop = loop;
+}
+
+void SocketServer::stop() {
+    server_->loop->stop();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(SocketServer::server_->j_server_);
+    SocketServer::server_->j_server_ = nullptr;
     delete server_;
     server_ = nullptr;
 }
