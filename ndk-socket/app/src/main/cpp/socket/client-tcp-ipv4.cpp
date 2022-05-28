@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <android/log.h>
+#include <errno.h>
 
 ClientTcpIpv4::ClientTcpIpv4(IMsgListener* listener)
         : listener_(listener)
@@ -27,7 +28,7 @@ int ClientTcpIpv4::send() {
     int readSize = 0;
 
     if (connect(sock, (struct sockaddr*)&dest, sizeof(dest)) != 0) {
-        __android_log_print(ANDROID_LOG_INFO, "ClientTcpIpv4", "connect failed");
+        __android_log_print(ANDROID_LOG_INFO, "ClientTcpIpv4", "connect failed[%d]", errno);
         goto exit;
     }
 

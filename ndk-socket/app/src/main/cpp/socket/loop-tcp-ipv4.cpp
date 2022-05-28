@@ -9,6 +9,7 @@
 #include <android/log.h>
 #include <arpa/inet.h> // inet_ntop
 #include <thread>
+#include <errno.h>
 
 LoopTcpIpv4::LoopTcpIpv4(IMsgListener* listener)
 : listener_(listener)
@@ -25,6 +26,7 @@ void LoopTcpIpv4::run() {
     // ソケットの作成
     socketFd = socket(AF_INET, SOCK_STREAM, 0);
     if (socketFd == -1) {
+        __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "create socket failed[%d]", errno);
         goto exit;
     }
 
@@ -35,19 +37,19 @@ void LoopTcpIpv4::run() {
 
     // 待受け条件を設定
     if (bind(socketFd, (struct sockaddr *)&addr, sizeof(addr)) != 0) {
-        __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "bind failed");
+        __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "bind failed[%d]", errno);
         goto exit;
     }
 
     // TCP クライアントからの待受を開始
     if (listen(socketFd, 5) != 0){
-        __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "listen failed");
+        __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "listen failed[%d]", errno);
         goto exit;
     }
 
     for (;;) {
         if (this->stopFlg_) {
-            __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "stop loop");
+            __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "stop loop[%d]", errno);
             goto exit;
         }
 
