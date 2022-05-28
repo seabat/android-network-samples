@@ -3,16 +3,12 @@
 #include "socket-client.h"
 #include "client-tcp-ipv4.h"
 
-SocketClient* SocketClient::client_;
+std::shared_ptr<SocketClient> SocketClient::client_;
 
-SocketClient* SocketClient::createInstance(jobject jClient) {
+std::shared_ptr<SocketClient> SocketClient::createInstance(jobject jClient) {
     if (SocketClient::client_ == nullptr) {
-        SocketClient::client_ = new SocketClient(JniRef::getInstance()->getJNIEnv()->NewGlobalRef(jClient));
+        SocketClient::client_ = std::make_shared<SocketClient>(JniRef::getInstance()->getJNIEnv()->NewGlobalRef(jClient));
     }
-    return SocketClient::client_;
-}
-
-SocketClient* SocketClient::getInstance() {
     return SocketClient::client_;
 }
 

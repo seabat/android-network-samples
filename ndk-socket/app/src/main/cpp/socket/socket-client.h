@@ -7,17 +7,17 @@
 class SocketClient : public IMsgListener {
 private:
     //variables
-    static SocketClient* client_;
+    static std::shared_ptr<SocketClient> client_;
     jobject j_client_;
 
-    // constructors
-    SocketClient(jobject jClient);
 
 public:
+    // constructors
+    SocketClient(jobject jClient);
+      //NOTE: std::make_shared は public のコンストラクタでないと呼び出せない
     //methods
     ~SocketClient();
-    static SocketClient* createInstance(jobject jClient);
-    static SocketClient* getInstance();
+    static std::shared_ptr<SocketClient> createInstance(jobject jClient);
     void callback(std::string msg) override;
     void send(std::string msg);
 };
