@@ -14,7 +14,7 @@ ClientTcpIpv4::ClientTcpIpv4(IMsgListener* listener)
 {
 }
 
-int ClientTcpIpv4::send() {
+int ClientTcpIpv4::send(std::string msg) {
     struct sockaddr_in dest;
     int sock = -1;
 
@@ -26,6 +26,7 @@ int ClientTcpIpv4::send() {
     int writeSize = 0;
     char readBuf[32] = {0};
     int readSize = 0;
+    char* msgChar = const_cast<char *>(msg.c_str());
 
     if (connect(sock, (struct sockaddr*)&dest, sizeof(dest)) != 0) {
         __android_log_print(ANDROID_LOG_INFO, "ClientTcpIpv4", "connect failed[%d]", errno);
@@ -33,7 +34,7 @@ int ClientTcpIpv4::send() {
     }
 
     // サーバへデータを送信
-    snprintf(writeBuf, sizeof(writeBuf), "message from IPv4 client");
+    snprintf(writeBuf, sizeof(writeBuf), "%s", msgChar);
     writeSize = write(sock, writeBuf, strnlen(writeBuf, sizeof(writeBuf)));
 
     //サーバからデータを受信

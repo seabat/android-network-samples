@@ -82,7 +82,7 @@ void LoopTcpIpv4::run() {
             // クライアントに返信
             int writeSize = 0;
             char writeBuf[32] = {0};
-            snprintf(writeBuf, sizeof(writeBuf), "message from IPv4 server");
+            snprintf(writeBuf, sizeof(writeBuf), "%s from server", readBuf);
             writeSize = write(acceptedSocketFd, writeBuf, strnlen(writeBuf, sizeof(writeBuf)));
 
             // fd をクローズ

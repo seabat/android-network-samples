@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.HandlerCompat
 import dev.seabat.socket.databinding.ActivityMainBinding
@@ -25,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         // Example of a call to a native method
         binding.serverText.text = stringFromJNI()
         binding.sendButton.setOnClickListener {
-            client.sendAsync("Hello")
+            val text: String = binding.editText.text.toString()
+            client.sendAsync(text)
         }
 
 
@@ -34,10 +34,10 @@ class MainActivity : AppCompatActivity() {
                 if (Thread.currentThread() != this@MainActivity.application.mainLooper.thread) {
                     val mainThreadHandler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
                     mainThreadHandler.post(Runnable {
-                        binding.serverText.text = "From Server: $msg"
+                        binding.serverText.text = "Server: $msg"
                     })
                 } else {
-                    binding.serverText.text = "From Server: $msg"
+                    binding.serverText.text = "Server: $msg"
                 }
                 Log.v("SocketServer", "receive:$msg")
             }
@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity() {
                 if (Thread.currentThread() != this@MainActivity.application.mainLooper.thread) {
                     val mainThreadHandler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
                     mainThreadHandler.post(Runnable {
-                        binding.clientText.text = "From Client: $msg"
+                        binding.clientText.text = "Client: $msg"
                     })
                 } else {
-                    binding.clientText.text = "From Client: $msg"
+                    binding.clientText.text = "Client: $msg"
                 }
                 Log.v("SocketClient", "receive:$msg")
             }

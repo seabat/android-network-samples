@@ -9,7 +9,7 @@ class ClientTcpIpv4 {
 
 public:
     ClientTcpIpv4(IMsgListener* listener);
-    int send();
+    int send(std::string msg);
 };
 
 

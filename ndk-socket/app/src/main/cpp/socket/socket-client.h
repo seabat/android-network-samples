@@ -19,7 +19,7 @@ public:
     static SocketClient* createInstance(jobject jClient);
     static SocketClient* getInstance();
     void callback(std::string msg) override;
-    void send(const char* msg);
+    void send(std::string msg);
 };
 
 #endif //NDK_SOCKET_SOCKET_CLIENT_H

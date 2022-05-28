@@ -8,7 +8,7 @@ Java_dev_seabat_socket_SocketClient_sendJni(JNIEnv *env, jobject thiz, jobject j
                                             jstring msg) {
     SocketClient* client = SocketClient::createInstance(jSocketClient);
     const char *msgChar = env->GetStringUTFChars(msg, nullptr);
-    client->send(msgChar);
+    client->send(std::string(msgChar));
     env->ReleaseStringUTFChars(msg, msgChar);
     return 0;
 }
