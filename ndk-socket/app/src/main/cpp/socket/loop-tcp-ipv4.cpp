@@ -24,7 +24,8 @@ void LoopTcpIpv4::run() {
     socklen_t len;
 
     // ソケットの作成
-    socketFd = socket(AF_INET, SOCK_STREAM, 0);
+//    socketFd = socket(AF_INET, SOCK_STREAM, 0);
+    socketFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (socketFd == -1) {
         __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "create socket failed[%d]", errno);
         goto exit;
