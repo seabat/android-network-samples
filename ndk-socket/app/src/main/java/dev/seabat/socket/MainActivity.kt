@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.HandlerCompat
 import dev.seabat.socket.databinding.ActivityMainBinding
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var server: SocketServer
     private lateinit var client: SocketClient
+    private lateinit var transportType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,30 @@ class MainActivity : AppCompatActivity() {
                 Log.v("SocketClient", "receive:$msg")
             }
         })
+
+        // ラジオボタングループのデフォルトを TCP にする
+        val radioGroup = binding.transportGrp
+        radioGroup.check(R.id.radio_tcp)
+        this.transportType = "TCP"
+    }
+
+    fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+            // Is the button now checked?
+            val checked = view.isChecked
+
+            // Check which radio button was clicked
+            when (view.getId()) {
+                R.id.radio_tcp ->
+                    if (checked) {
+                        this.transportType = "TCP"
+                    }
+                R.id.radio_udp ->
+                    if (checked) {
+                        this.transportType = "UDP"
+                    }
+            }
+        }
     }
 
     /**
