@@ -2,7 +2,7 @@
 #define NDK_SOCKET_SOCKET_CLIENT_H
 
 #include <jni.h>
-#include "msg-listener.h"
+#include "i-msg-listener.h"
 
 class SocketClient : public IMsgListener {
 private:

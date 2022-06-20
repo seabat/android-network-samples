@@ -2,9 +2,10 @@
 #define NDK_SOCKET_LOOP_TCP_IPV4_H
 
 
-#include "msg-listener.h"
+#include "i-msg-listener.h"
+#include "i-loop-transport.h"
 
-class LoopTcpIpv4 {
+class LoopTcpIpv4 : public ILoopTransport {
 private:
     IMsgListener* listener_;
     bool stopFlg_;

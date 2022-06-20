@@ -2,7 +2,7 @@
 #define NDK_SOCKET_CLIENT_TCP_IPV4_H
 
 
-#include "msg-listener.h"
+#include "i-msg-listener.h"
 
 class ClientTcpIpv4 {
     IMsgListener* listener_;

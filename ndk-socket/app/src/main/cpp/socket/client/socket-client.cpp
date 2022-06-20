@@ -1,7 +1,7 @@
 #include <thread>
 #include <jni-ref.h>
 #include "socket-client.h"
-#include "client-tcp-ipv4.h"
+#include "socket/client/client-tcp-ipv4.h"
 
 std::shared_ptr<SocketClient> SocketClient::client_;
 

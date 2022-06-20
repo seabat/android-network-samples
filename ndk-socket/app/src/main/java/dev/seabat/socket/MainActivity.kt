@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var server: SocketServer
     private lateinit var client: SocketClient
-    private lateinit var transportType: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         // ラジオボタングループのデフォルトを TCP にする
         val radioGroup = binding.transportGrp
         radioGroup.check(R.id.radio_tcp)
-        this.transportType = "TCP"
     }
 
     fun onRadioButtonClicked(view: View) {
@@ -76,11 +74,11 @@ class MainActivity : AppCompatActivity() {
             when (view.getId()) {
                 R.id.radio_tcp ->
                     if (checked) {
-                        this.transportType = "TCP"
+                        this.server.setTransportType("TCP")
                     }
                 R.id.radio_udp ->
                     if (checked) {
-                        this.transportType = "UDP"
+                        this.server.setTransportType("UDP")
                     }
             }
         }

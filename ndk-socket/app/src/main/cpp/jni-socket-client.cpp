@@ -1,6 +1,6 @@
 #include <jni.h>
 #include <string>
-#include "socket-client.h"
+#include "socket/client/socket-client.h"
 
 extern "C"
 JNIEXPORT jint JNICALL
