@@ -4,12 +4,14 @@ class SocketServer(val listener: SocketServerListener) {
 
     private var transportType: String = "TCP"
 
-    fun setTransportType(transportType: String) {
+    fun changeTransportType(transportType: String) {
         this.transportType = transportType;
+//        this.closeJni(); //TODO: 待ち状態の socket を閉じる実装にまだなっていない
+        this.runJni(this.transportType,this)
     }
 
     fun run() {
-        runJni(this.transportType,this)
+        this.runJni(this.transportType,this)
     }
 
     fun callback(msg: String): Unit {
@@ -17,7 +19,7 @@ class SocketServer(val listener: SocketServerListener) {
     }
 
     private external fun runJni(transportType: String, server: SocketServer): Int
-    private external fun closeJni()
+    private external fun closeJni(): Unit
 }
 
 interface SocketServerListener {

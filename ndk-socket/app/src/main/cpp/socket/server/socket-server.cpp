@@ -6,10 +6,9 @@
 
 SocketServer* SocketServer::server_;
 
-SocketServer* SocketServer::createInstance(std::string transportType, jobject jServer) {
+SocketServer* SocketServer::createInstance(jobject jServer) {
     if (SocketServer::server_ == nullptr) {
-        SocketServer::server_ = new SocketServer(transportType
-                , JniRef::getInstance()->getJNIEnv()->NewGlobalRef(jServer));
+        SocketServer::server_ = new SocketServer(JniRef::getInstance()->getJNIEnv()->NewGlobalRef(jServer));
     }
     return SocketServer::server_;
 }
@@ -18,22 +17,39 @@ SocketServer* SocketServer::getInstance() {
     return SocketServer::server_;
 }
 
-SocketServer::SocketServer(std::string transportType, jobject jServer)
-: transport_type_(transportType)
-, j_server_(jServer)
+SocketServer::SocketServer(jobject jServer)
+: j_server_(jServer)
+, tcp_enabled_(false)
+, udp_enabled_(false)
 {
 }
 
 SocketServer::~SocketServer() {
-    this->loop->stop();
+    this->loop_->stop();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(this->j_server_);
     this->j_server_ = nullptr;
 }
 
-void SocketServer::run() {
-    std::thread serverThread([this]() {
+void SocketServer::run(std::string transportType) {
+    if (transportType.compare("TCP") == 0) {
+        if (this->tcp_enabled_) {
+            return;
+        } else {
+            this->tcp_enabled_ = true;
+        }
+    } else if (transportType.compare("UDP") == 0) {
+        if (this->udp_enabled_) {
+            return;
+        } else {
+            this->udp_enabled_ = true;
+        }
+    } else {
+        return;
+    }
+
+    std::thread serverThread([this, transportType]() {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
-        std::shared_ptr<ILoopTransport> loop(LoopTransportFactory::create(this->transport_type_, this));
+        std::shared_ptr<ILoopTransport> loop(LoopTransportFactory::create(transportType, this));
         this->setLoop(loop);
         loop->run();
         return;
@@ -68,11 +84,11 @@ void SocketServer::callback(std::string msg) {
 }
 
 void SocketServer::setLoop(std::shared_ptr<ILoopTransport> loop){
-    this->loop = loop;
+    this->loop_ = loop;
 }
 
 void SocketServer::stop() {
-    server_->loop->stop();
+    server_->loop_->stop();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(SocketServer::server_->j_server_);
     SocketServer::server_->j_server_ = nullptr;
     delete server_;

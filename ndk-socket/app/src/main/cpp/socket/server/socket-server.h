@@ -9,21 +9,22 @@ class SocketServer : public IMsgListener {
 private:
     //variables
     static SocketServer* server_; // instance of this class
-    std::string transport_type_;
     jobject j_server_;
-    std::shared_ptr<ILoopTransport> loop;
+    std::shared_ptr<ILoopTransport> loop_;
+    bool tcp_enabled_; // TCP のループが有効か
+    bool udp_enabled_; // UDP のループが有効か
 
     //constructors
-    SocketServer(std::string transportType, jobject jServer);
+    SocketServer(jobject jServer);
 
 public:
     //constructors
     ~SocketServer();
 
     //methods
-    static SocketServer* createInstance(std::string transportType, jobject jServer);
+    static SocketServer* createInstance(jobject jServer);
     static SocketServer* getInstance();
-    void run();
+    void run(std::string transportType);
     void callback(std::string msg) override;
     void setLoop(std::shared_ptr<ILoopTransport> loop);
     static void stop();

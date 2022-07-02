@@ -19,7 +19,7 @@ public:
     ~SocketClient();
     static std::shared_ptr<SocketClient> createInstance(jobject jClient);
     void callback(std::string msg) override;
-    void send(std::string msg);
+    void send(std::string transportType, std::string msg);
 };
 
 #endif //NDK_SOCKET_SOCKET_CLIENT_H

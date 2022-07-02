@@ -74,11 +74,13 @@ class MainActivity : AppCompatActivity() {
             when (view.getId()) {
                 R.id.radio_tcp ->
                     if (checked) {
-                        this.server.setTransportType("TCP")
+                        this.server.changeTransportType("TCP")
+                        this.client.setTransportType("TCP")
                     }
                 R.id.radio_udp ->
                     if (checked) {
-                        this.server.setTransportType("UDP")
+                        this.server.changeTransportType("UDP")
+                        this.client.setTransportType("UDP")
                     }
             }
         }

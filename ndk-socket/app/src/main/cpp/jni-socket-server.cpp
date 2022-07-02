@@ -7,8 +7,8 @@ extern "C"
 JNIEXPORT jint JNICALL
 Java_dev_seabat_socket_SocketServer_runJni(JNIEnv *env, jobject thiz, jstring transportType, jobject jSocketServer) {
     const char *transportTypeChar = env->GetStringUTFChars(transportType, nullptr);
-    SocketServer* server = SocketServer::createInstance(std::string(transportTypeChar), jSocketServer);
-    server->run();
+    SocketServer* server = SocketServer::createInstance(jSocketServer);
+    server->run(std::string(transportTypeChar));
     env->ReleaseStringUTFChars(transportType, transportTypeChar);
     return 0;
 }

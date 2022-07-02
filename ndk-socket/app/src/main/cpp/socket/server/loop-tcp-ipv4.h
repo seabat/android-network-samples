@@ -12,8 +12,8 @@ private:
 
 public:
     LoopTcpIpv4(IMsgListener* listener);
-    void run();
-    void stop();
+    void run() override;
+    void stop() override;
 };
 
 
