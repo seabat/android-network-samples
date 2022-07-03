@@ -22,9 +22,9 @@ int ClientTcpIpv4::send(std::string msg) {
     dest.sin_family = AF_INET;
     dest.sin_port = htons(54321);
     inet_pton(AF_INET, "127.0.0.1", &dest.sin_addr.s_addr);
-    char writeBuf[32] = {0};
+    char writeBuf[2048] = {0};
     int writeSize = 0;
-    char readBuf[32] = {0};
+    char readBuf[2048] = {0};
     int readSize = 0;
     char* msgChar = const_cast<char *>(msg.c_str());
 

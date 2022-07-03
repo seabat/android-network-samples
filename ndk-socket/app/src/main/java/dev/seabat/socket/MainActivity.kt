@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.HandlerCompat
 import dev.seabat.socket.databinding.ActivityMainBinding
@@ -57,6 +59,31 @@ class MainActivity : AppCompatActivity() {
                 Log.v("SocketClient", "receive:$msg")
             }
         })
+
+        // ラジオボタングループのデフォルトを TCP にする
+        val radioGroup = binding.transportGrp
+        radioGroup.check(R.id.radio_tcp)
+    }
+
+    fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+            // Is the button now checked?
+            val checked = view.isChecked
+
+            // Check which radio button was clicked
+            when (view.getId()) {
+                R.id.radio_tcp ->
+                    if (checked) {
+                        this.server.changeTransportType("TCP")
+                        this.client.setTransportType("TCP")
+                    }
+                R.id.radio_udp ->
+                    if (checked) {
+                        this.server.changeTransportType("UDP")
+                        this.client.setTransportType("UDP")
+                    }
+            }
+        }
     }
 
     /**

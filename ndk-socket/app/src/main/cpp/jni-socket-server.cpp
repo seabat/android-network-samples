@@ -1,13 +1,15 @@
 #include <jni.h>
 #include <string>
-#include "socket-server.h"
+#include "socket/server/socket-server.h"
 #include "jni-ref.h"
 
 extern "C"
 JNIEXPORT jint JNICALL
-Java_dev_seabat_socket_SocketServer_runJni(JNIEnv *env, jobject thiz, jobject jSocketServer) {
+Java_dev_seabat_socket_SocketServer_runJni(JNIEnv *env, jobject thiz, jstring transportType, jobject jSocketServer) {
+    const char *transportTypeChar = env->GetStringUTFChars(transportType, nullptr);
     SocketServer* server = SocketServer::createInstance(jSocketServer);
-    server->run();
+    server->run(std::string(transportTypeChar));
+    env->ReleaseStringUTFChars(transportType, transportTypeChar);
     return 0;
 }
 extern "C"

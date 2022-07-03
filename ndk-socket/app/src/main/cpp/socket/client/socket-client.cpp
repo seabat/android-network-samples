@@ -1,7 +1,8 @@
 #include <thread>
 #include <jni-ref.h>
 #include "socket-client.h"
-#include "client-tcp-ipv4.h"
+#include "i-client-transport.h"
+#include "client-transport-factory.h"
 
 std::shared_ptr<SocketClient> SocketClient::client_;
 
@@ -48,10 +49,10 @@ void SocketClient::callback(std::string msg) {
     if (attached) JniRef::getInstance()->getJavaVm()->DetachCurrentThread();
 }
 
-void SocketClient::send(std::string msg) {
-    std::thread clientThread([this,msg]() {
+void SocketClient::send(std::string transportType, std::string msg) {
+    std::thread clientThread([this, transportType, msg]() {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
-        std::shared_ptr<ClientTcpIpv4> client = std::make_shared<ClientTcpIpv4>(this);
+        std::shared_ptr<IClientTransport> client(ClientTransportFactory::create(transportType, this));
         client->send(msg);
         return;
     });

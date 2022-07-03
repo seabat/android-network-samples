@@ -1,7 +1,8 @@
 #include <thread>
 #include "socket-server.h"
 #include "jni-ref.h"
-#include "loop-tcp-ipv4.h"
+#include "socket/server/i-loop-transport.h"
+#include "socket/server/loop-transport-factory.h"
 
 SocketServer* SocketServer::server_;
 
@@ -18,19 +19,37 @@ SocketServer* SocketServer::getInstance() {
 
 SocketServer::SocketServer(jobject jServer)
 : j_server_(jServer)
+, tcp_enabled_(false)
+, udp_enabled_(false)
 {
 }
 
 SocketServer::~SocketServer() {
-    this->loop->stop();
+    this->loop_->stop();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(this->j_server_);
     this->j_server_ = nullptr;
 }
 
-void SocketServer::run() {
-    std::thread serverThread([this]() {
+void SocketServer::run(std::string transportType) {
+    if (transportType.compare("TCP") == 0) {
+        if (this->tcp_enabled_) {
+            return;
+        } else {
+            this->tcp_enabled_ = true;
+        }
+    } else if (transportType.compare("UDP") == 0) {
+        if (this->udp_enabled_) {
+            return;
+        } else {
+            this->udp_enabled_ = true;
+        }
+    } else {
+        return;
+    }
+
+    std::thread serverThread([this, transportType]() {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
-        std::shared_ptr<LoopTcpIpv4> loop = std::make_shared<LoopTcpIpv4>(this);
+        std::shared_ptr<ILoopTransport> loop(LoopTransportFactory::create(transportType, this));
         this->setLoop(loop);
         loop->run();
         return;
@@ -64,12 +83,12 @@ void SocketServer::callback(std::string msg) {
     if (attached) JniRef::getInstance()->getJavaVm()->DetachCurrentThread();
 }
 
-void SocketServer::setLoop(std::shared_ptr<LoopTcpIpv4> loop){
-    this->loop = loop;
+void SocketServer::setLoop(std::shared_ptr<ILoopTransport> loop){
+    this->loop_ = loop;
 }
 
 void SocketServer::stop() {
-    server_->loop->stop();
+    server_->loop_->stop();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(SocketServer::server_->j_server_);
     SocketServer::server_->j_server_ = nullptr;
     delete server_;

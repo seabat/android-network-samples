@@ -25,10 +25,14 @@ add_library( # Sets the name of the library.
         jni-ref.cpp
         jni-socket-client.cpp
         jni-socket-server.cpp
-        socket/socket-client.cpp
-        socket/socket-server.cpp
-        socket/loop-tcp-ipv4.cpp
-        socket/client-tcp-ipv4.cpp
+        socket/server/socket-server.cpp
+        socket/server/loop-tcp-ipv4.cpp
+        socket/server/loop-udp-ipv4.cpp
+        socket/server/loop-transport-factory.cpp
+        socket/client/socket-client.cpp
+        socket/client/client-tcp-ipv4.cpp
+        socket/client/client-udp-ipv4.cpp
+        socket/client/client-transport-factory.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a
