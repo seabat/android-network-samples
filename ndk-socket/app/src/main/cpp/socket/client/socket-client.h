@@ -15,8 +15,9 @@ public:
     // constructors
     SocketClient(jobject jClient);
       //NOTE: std::make_shared は public のコンストラクタでないと呼び出せない
-    //methods
     ~SocketClient();
+
+    //methods
     static std::shared_ptr<SocketClient> createInstance(jobject jClient);
     void callback(std::string msg) override;
     void sendMsg(std::string transportType, std::string msg);

@@ -2,8 +2,9 @@
 #define NDK_SOCKET_SOCKET_SERVER_H
 
 #include <jni.h>
+#include <string>
 #include "i-msg-listener.h"
-#include "socket/server/i-loop-transport.h"
+#include "i-loop-transport.h"
 
 class SocketServer : public IMsgListener {
 private:
