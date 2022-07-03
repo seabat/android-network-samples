@@ -17,7 +17,7 @@ LoopTcpIpv4::LoopTcpIpv4(IMsgListener* listener)
 {
 }
 
-void LoopTcpIpv4::run() {
+void LoopTcpIpv4::waitMsg() {
     int socketFd = -1;
     struct sockaddr_in addr;
     struct sockaddr_in client;
@@ -50,7 +50,7 @@ void LoopTcpIpv4::run() {
 
     for (;;) {
         if (this->stopFlg_) {
-            __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "stop loop[%d]", errno);
+            __android_log_print(ANDROID_LOG_INFO, "LoopTcpIpv4", "stopWait loop[%d]", errno);
             goto exit;
         }
 
@@ -99,6 +99,6 @@ exit:
     }
 }
 
-void LoopTcpIpv4::stop() {
+void LoopTcpIpv4::stopWait() {
     this->stopFlg_ = true;
 }

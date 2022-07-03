@@ -6,6 +6,6 @@
 class IClientTransport {
 
 public:
-    virtual int send(std::string msg) = 0;
+    virtual int sendMsg(std::string msg) = 0;
 };
 #endif //NDK_SOCKET_I_CLIENT_TRANSPORT_H

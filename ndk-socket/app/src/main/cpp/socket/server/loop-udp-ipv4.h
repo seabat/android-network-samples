@@ -12,8 +12,8 @@ private:
 
 public:
     LoopUdpIpv4(IMsgListener* listener);
-    void run() override;
-    void stop() override;
+    void waitMsg() override;
+    void stopWait() override;
 };
 
 

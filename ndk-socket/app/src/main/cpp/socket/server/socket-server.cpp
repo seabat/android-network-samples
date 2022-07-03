@@ -25,7 +25,7 @@ SocketServer::SocketServer(jobject jServer)
 }
 
 SocketServer::~SocketServer() {
-    this->loop_->stop();
+    this->loop_->stopWait();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(this->j_server_);
     this->j_server_ = nullptr;
 }
@@ -51,7 +51,7 @@ void SocketServer::run(std::string transportType) {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
         std::shared_ptr<ILoopTransport> loop(LoopTransportFactory::create(transportType, this));
         this->setLoop(loop);
-        loop->run();
+        loop->waitMsg();
         return;
     });
     serverThread.detach();
@@ -88,7 +88,7 @@ void SocketServer::setLoop(std::shared_ptr<ILoopTransport> loop){
 }
 
 void SocketServer::stop() {
-    server_->loop_->stop();
+    server_->loop_->stopWait();
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(SocketServer::server_->j_server_);
     SocketServer::server_->j_server_ = nullptr;
     delete server_;

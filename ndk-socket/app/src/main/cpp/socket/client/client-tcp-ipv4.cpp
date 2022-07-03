@@ -14,7 +14,7 @@ ClientTcpIpv4::ClientTcpIpv4(IMsgListener* listener)
 {
 }
 
-int ClientTcpIpv4::send(std::string msg) {
+int ClientTcpIpv4::sendMsg(std::string msg) {
     struct sockaddr_in dest;
     int sock = -1;
 

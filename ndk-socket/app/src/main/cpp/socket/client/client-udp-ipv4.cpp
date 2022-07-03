@@ -14,7 +14,7 @@ ClientUdpIpv4::ClientUdpIpv4(IMsgListener* listener)
 {
 }
 
-int ClientUdpIpv4::send(std::string msg) {
+int ClientUdpIpv4::sendMsg(std::string msg) {
     struct sockaddr_in addr;
     int sock = -1;
     int sendSize = 0;

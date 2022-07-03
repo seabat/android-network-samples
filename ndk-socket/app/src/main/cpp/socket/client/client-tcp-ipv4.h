@@ -9,7 +9,7 @@ class ClientTcpIpv4 : public IClientTransport {
 
 public:
     ClientTcpIpv4(IMsgListener* listener);
-    int send(std::string msg) override;
+    int sendMsg(std::string msg) override;
 };
 
 

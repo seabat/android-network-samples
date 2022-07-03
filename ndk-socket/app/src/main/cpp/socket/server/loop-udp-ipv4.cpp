@@ -17,7 +17,7 @@ LoopUdpIpv4::LoopUdpIpv4(IMsgListener* listener)
 {
 }
 
-void LoopUdpIpv4::run() {
+void LoopUdpIpv4::waitMsg() {
     int socketFd = -1;
     struct sockaddr_in addr;
     struct sockaddr_in senderAddr; // 送信側の socket 情報
@@ -45,7 +45,7 @@ void LoopUdpIpv4::run() {
 
     for (;;) {
         if (this->stopFlg_) {
-            __android_log_print(ANDROID_LOG_INFO, "LoopUdpIpv4", "stop loop[%d]", errno);
+            __android_log_print(ANDROID_LOG_INFO, "LoopUdpIpv4", "stopWait loop[%d]", errno);
             break;
         }
 
@@ -90,6 +90,6 @@ exit:
     return;
 }
 
-void LoopUdpIpv4::stop() {
+void LoopUdpIpv4::stopWait() {
     this->stopFlg_ = true;
 }

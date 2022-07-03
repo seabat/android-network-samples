@@ -10,7 +10,7 @@ class ClientUdpIpv4 : public IClientTransport{
 
 public:
     ClientUdpIpv4(IMsgListener* listener);
-    int send(std::string msg) override;
+    int sendMsg(std::string msg) override;
 };
 
 
