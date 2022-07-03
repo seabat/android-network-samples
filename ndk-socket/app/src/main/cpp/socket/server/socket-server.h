@@ -2,6 +2,7 @@
 #define NDK_SOCKET_SOCKET_SERVER_H
 
 #include <jni.h>
+#include <map>
 #include <string>
 #include "i-msg-listener.h"
 #include "i-loop-transport.h"
@@ -12,9 +13,7 @@ private:
     //variables
     static SocketServer* server_; // instance of this class
     jobject j_server_;
-    std::shared_ptr<ILoopTransport> loop_;
-    bool tcp_enabled_; // TCP のループが有効か
-    bool udp_enabled_; // UDP のループが有効か
+    std::map<TransportType, std::shared_ptr<ILoopTransport>> loop_map_;
 
     //constructors
     SocketServer(jobject jServer);
@@ -28,7 +27,7 @@ public:
     static SocketServer* getInstance();
     void run(TransportType transportType);
     void callback(std::string msg) override;
-    void setLoop(std::shared_ptr<ILoopTransport> loop);
+    void addLoop(TransportType transportType, std::shared_ptr<ILoopTransport> loop);
     static void stop();
 };
 

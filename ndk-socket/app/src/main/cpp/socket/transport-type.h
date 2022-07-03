@@ -10,6 +10,9 @@ enum class TransportType {
 };
 
 extern "C"
-TransportType convertTransportType(std::string strType);
+TransportType convertTransportEnum(std::string strType);
+
+extern "C"
+std::string convertTransportString(TransportType enumType);
 
 #endif //NDK_SOCKET_TRANSPORT_TYPE_H

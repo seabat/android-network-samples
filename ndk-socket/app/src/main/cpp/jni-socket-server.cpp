@@ -9,7 +9,7 @@ JNIEXPORT jint JNICALL
 Java_dev_seabat_socket_SocketServer_runJni(JNIEnv *env, jobject thiz, jstring transportType, jobject jSocketServer) {
     const char *transportTypeChar = env->GetStringUTFChars(transportType, nullptr);
     SocketServer* server = SocketServer::createInstance(jSocketServer);
-    TransportType transportEnum = convertTransportType(std::string(transportTypeChar));
+    TransportType transportEnum = convertTransportEnum(std::string(transportTypeChar));
     server->run(transportEnum);
     env->ReleaseStringUTFChars(transportType, transportTypeChar);
     return 0;

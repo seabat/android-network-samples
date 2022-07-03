@@ -1,8 +1,10 @@
 #include <thread>
+#include <android/log.h>
 #include "socket-server.h"
 #include "jni-ref.h"
 #include "socket/server/i-loop-transport.h"
 #include "socket/server/loop-transport-factory.h"
+#include "transport-type.h"
 
 SocketServer* SocketServer::server_;
 
@@ -19,38 +21,31 @@ SocketServer* SocketServer::getInstance() {
 
 SocketServer::SocketServer(jobject jServer)
 : j_server_(jServer)
-, tcp_enabled_(false)
-, udp_enabled_(false)
 {
 }
 
 SocketServer::~SocketServer() {
-    this->loop_->stopWait();
+    for (auto iter = this->loop_map_.begin(); iter != this->loop_map_.end(); ++iter){
+        __android_log_print(ANDROID_LOG_INFO
+                            , "~SocketServer"
+                            , "transport type: %s", convertTransportString(iter->first).c_str());
+        iter->second->stopWait();
+    }
+
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(this->j_server_);
     this->j_server_ = nullptr;
 }
 
 void SocketServer::run(TransportType transportType) {
-    if (TransportType::TCP == transportType) {
-        if (this->tcp_enabled_) {
-            return;
-        } else {
-            this->tcp_enabled_ = true;
-        }
-    } else if (TransportType::UDP == transportType) {
-        if (this->udp_enabled_) {
-            return;
-        } else {
-            this->udp_enabled_ = true;
-        }
-    } else {
+    decltype(this->loop_map_)::iterator it = this->loop_map_.find(transportType);
+    if (it != this->loop_map_.end()) {
         return;
     }
 
     std::thread serverThread([this, transportType]() {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
         std::shared_ptr<ILoopTransport> loop(LoopTransportFactory::create(transportType, this));
-        this->setLoop(loop);
+        this->addLoop(transportType, loop);
         loop->waitMsg();
         return;
     });
@@ -83,12 +78,15 @@ void SocketServer::callback(std::string msg) {
     if (attached) JniRef::getInstance()->getJavaVm()->DetachCurrentThread();
 }
 
-void SocketServer::setLoop(std::shared_ptr<ILoopTransport> loop){
-    this->loop_ = loop;
+void SocketServer::addLoop(TransportType transportType, std::shared_ptr<ILoopTransport> loop){
+    this->loop_map_[transportType] = loop;
 }
 
 void SocketServer::stop() {
-    server_->loop_->stopWait();
+    for (auto iter = server_->loop_map_.begin(); iter != server_->loop_map_.end(); ++iter){
+        iter->second->stopWait();
+    }
+
     JniRef::getInstance()->getJNIEnv()->DeleteGlobalRef(SocketServer::server_->j_server_);
     SocketServer::server_->j_server_ = nullptr;
     delete server_;
