@@ -33,23 +33,27 @@
 
     <RadioGroup
         android:id="@+id/transport_grp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/send_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/client_text"
-        app:layout_constraintBottom_toTopOf="@+id/send_button" >
-        <RadioButton android:id="@+id/radio_tcp"
+        app:layout_constraintTop_toBottomOf="@+id/client_text">
+
+        <RadioButton
+            android:id="@+id/radio_tcp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TCP"
-            android:onClick="onRadioButtonClicked" />
-        <RadioButton android:id="@+id/radio_udp"
+            android:onClick="onRadioButtonClicked"
+            android:text="TCP" />
+
+        <RadioButton
+            android:id="@+id/radio_udp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UDP"
-            android:onClick="onRadioButtonClicked"/>
+            android:onClick="onRadioButtonClicked"
+            android:text="UDP" />
     </RadioGroup>
 
     <Button

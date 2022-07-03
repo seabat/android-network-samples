@@ -49,7 +49,7 @@ void SocketClient::callback(std::string msg) {
     if (attached) JniRef::getInstance()->getJavaVm()->DetachCurrentThread();
 }
 
-void SocketClient::sendMsg(std::string transportType, std::string msg) {
+void SocketClient::sendMsg(TransportType transportType, std::string msg) {
     std::thread clientThread([this, transportType, msg]() {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
         std::shared_ptr<IClientTransport> client(ClientTransportFactory::create(transportType, this));

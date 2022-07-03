@@ -4,6 +4,7 @@
 #include <string>
 #include "i-client-transport.h"
 #include "i-msg-listener.h"
+#include "transport-type.h"
 
 class ClientTransportFactory {
 
@@ -13,7 +14,7 @@ public:
     ~ClientTransportFactory(){}
 
     // methods
-    static IClientTransport* create(std::string transportType, IMsgListener* listener);
+    static IClientTransport* create(TransportType transportType, IMsgListener* listener);
 
 };
 

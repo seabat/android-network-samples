@@ -3,12 +3,12 @@
 #include "loop-udp-ipv4.h"
 
 ILoopTransport* LoopTransportFactory::create(
-        std::string transportType
+        TransportType transportType
         , IMsgListener* listener) {
     ILoopTransport* loop = nullptr;
-    if (transportType.compare("TCP") == 0) {
+    if (TransportType::TCP == transportType) {
         loop = new LoopTcpIpv4(listener);
-    } else if (transportType.compare("UDP") == 0) {
+    } else if (TransportType::UDP == transportType) {
         loop = new LoopUdpIpv4(listener);
     }
     return loop;

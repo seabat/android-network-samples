@@ -3,12 +3,12 @@
 #include "client-udp-ipv4.h"
 
 IClientTransport* ClientTransportFactory::create(
-        std::string transportType
+        TransportType transportType
         , IMsgListener* listener) {
     IClientTransport* client = nullptr;
-    if (transportType.compare("TCP") == 0) {
+    if (TransportType::TCP == transportType) {
         client = new ClientTcpIpv4(listener);
-    } else if (transportType.compare("UDP") == 0) {
+    } else if (TransportType::UDP == transportType) {
         client = new ClientUdpIpv4(listener);
     }
     return client;

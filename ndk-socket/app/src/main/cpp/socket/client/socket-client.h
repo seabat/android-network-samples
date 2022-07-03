@@ -2,6 +2,7 @@
 #define NDK_SOCKET_SOCKET_CLIENT_H
 
 #include <jni.h>
+#include "transport-type.h"
 #include "i-msg-listener.h"
 
 class SocketClient : public IMsgListener {
@@ -20,7 +21,7 @@ public:
     //methods
     static std::shared_ptr<SocketClient> createInstance(jobject jClient);
     void callback(std::string msg) override;
-    void sendMsg(std::string transportType, std::string msg);
+    void sendMsg(TransportType transportType, std::string msg);
 };
 
 #endif //NDK_SOCKET_SOCKET_CLIENT_H

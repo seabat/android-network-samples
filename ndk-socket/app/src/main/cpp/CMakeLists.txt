@@ -25,6 +25,7 @@ add_library( # Sets the name of the library.
         jni-ref.cpp
         jni-socket-client.cpp
         jni-socket-server.cpp
+        socket/transport-type.cpp
         socket/server/socket-server.cpp
         socket/server/loop-tcp-ipv4.cpp
         socket/server/loop-udp-ipv4.cpp

@@ -2,13 +2,15 @@
 #include <string>
 #include "socket/server/socket-server.h"
 #include "jni-ref.h"
+#include "transport-type.h"
 
 extern "C"
 JNIEXPORT jint JNICALL
 Java_dev_seabat_socket_SocketServer_runJni(JNIEnv *env, jobject thiz, jstring transportType, jobject jSocketServer) {
     const char *transportTypeChar = env->GetStringUTFChars(transportType, nullptr);
     SocketServer* server = SocketServer::createInstance(jSocketServer);
-    server->run(std::string(transportTypeChar));
+    TransportType transportEnum = convertTransportType(std::string(transportTypeChar));
+    server->run(transportEnum);
     env->ReleaseStringUTFChars(transportType, transportTypeChar);
     return 0;
 }

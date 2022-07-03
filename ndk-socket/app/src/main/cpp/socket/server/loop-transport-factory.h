@@ -4,6 +4,7 @@
 #include <string>
 #include "i-loop-transport.h"
 #include "i-msg-listener.h"
+#include "transport-type.h"
 
 class LoopTransportFactory {
 public:
@@ -12,9 +13,7 @@ public:
     ~LoopTransportFactory(){}
 
     // methods
-    static ILoopTransport* create(
-            std::string transportType
-            , IMsgListener* listener);
+    static ILoopTransport* create(TransportType transportType, IMsgListener* listener);
 };
 
 

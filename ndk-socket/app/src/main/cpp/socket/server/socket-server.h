@@ -5,6 +5,7 @@
 #include <string>
 #include "i-msg-listener.h"
 #include "i-loop-transport.h"
+#include "transport-type.h"
 
 class SocketServer : public IMsgListener {
 private:
@@ -25,7 +26,7 @@ public:
     //methods
     static SocketServer* createInstance(jobject jServer);
     static SocketServer* getInstance();
-    void run(std::string transportType);
+    void run(TransportType transportType);
     void callback(std::string msg) override;
     void setLoop(std::shared_ptr<ILoopTransport> loop);
     static void stop();

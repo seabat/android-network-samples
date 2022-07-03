@@ -30,14 +30,14 @@ SocketServer::~SocketServer() {
     this->j_server_ = nullptr;
 }
 
-void SocketServer::run(std::string transportType) {
-    if (transportType.compare("TCP") == 0) {
+void SocketServer::run(TransportType transportType) {
+    if (TransportType::TCP == transportType) {
         if (this->tcp_enabled_) {
             return;
         } else {
             this->tcp_enabled_ = true;
         }
-    } else if (transportType.compare("UDP") == 0) {
+    } else if (TransportType::UDP == transportType) {
         if (this->udp_enabled_) {
             return;
         } else {
