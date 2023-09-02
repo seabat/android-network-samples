@@ -1,34 +1,14 @@
 <resources>
     <string name="app_name">Kotlin WebSocket</string>
 
-    <!-- トップページ -->
+    <!-- サーバーページ -->
     <string name="server_tab">Server</string>
-    <string name="top_title">Client</string>
+    <string name="server_title">Client</string>
+    <string name="server_launch_websocket_server">WebSocketサーバー起動</string>
 
-    <!-- リポジトリ詳細ページ -->
-    <string name="repo_detail_title">Repository Detail Page</string>
-
-    <!-- 設定 -->
-    <string name="setting_title">設定</string>
-    <string name="setting_version_key">バージョン: </string>
-
-    <!-- Qiita ページ -->
+    <!-- クライアントページ -->
     <string name="client_tab">Qiita</string>
-    <string name="qiita_title">Qiita Page</string>
-    <string name="qiita_title_recently">最近の記事</string>
-    <string name="qiita_title_posted_date">投稿日: </string>
-
-    <!-- Qiita 検索ページ -->
-    <string name="qiita_search_title">Qiita Search Page</string>
-    <string name="qiita_search_description">記事を検索する期間を指定してください。</string>
-    <string name="qiita_search_start_date">開始日</string>
-    <string name="qiita_search_end_date">終了日</string>
-    <string name="qiita_search_search">検索</string>
-
-
-    <!-- Qiita 詳細ページ -->
-    <string name="qiita_detail_title">Qiita Detail Page</string>
-    <string name="qiita_search_close">CLOSE</string>
+    <string name="client_title">Qiita Page</string>
 
     <!-- 共通 -->
     <string name="error_network_connection">インターネット接続に失敗しました。インターネット接続状態を確認してください。</string>

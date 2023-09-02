@@ -9,16 +9,16 @@
     <fragment
         android:id="@+id/nav_server"
         android:name="dev.seabat.android.kotlinwebsocket.ui.pages.server.ServerFragment"
-        android:label="@string/top_title"
-        tools:layout="@layout/page_top">
+        android:label="@string/server_title"
+        tools:layout="@layout/page_server">
     </fragment>
 
     <!-- クライアント 画面 -->
     <fragment
         android:id="@+id/nav_client"
         android:name="dev.seabat.android.kotlinwebsocket.ui.pages.client.ClientFragment"
-        android:label="@string/qiita_title"
-        tools:layout="@layout/page_qiita">
+        android:label="@string/client_title"
+        tools:layout="@layout/page_client">
     </fragment>
 
 </navigation>
