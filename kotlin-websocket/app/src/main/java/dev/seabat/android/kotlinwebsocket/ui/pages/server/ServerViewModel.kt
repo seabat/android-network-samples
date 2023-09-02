@@ -1,4 +1,4 @@
-package dev.seabat.android.kotlinwebsocket.ui.pages.top
+package dev.seabat.android.kotlinwebsocket.ui.pages.server
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TopViewModel @Inject constructor(
+class ServerViewModel @Inject constructor(
     private val githubUseCase: GithubUseCaseContract,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {

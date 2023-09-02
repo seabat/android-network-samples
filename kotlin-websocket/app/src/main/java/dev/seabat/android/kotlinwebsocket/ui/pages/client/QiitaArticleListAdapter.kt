@@ -1,10 +1,5 @@
-package dev.seabat.android.kotlinwebsocket.ui.pages.qiita
+package dev.seabat.android.kotlinwebsocket.ui.pages.client
 
-import android.icu.text.DateFormat
-import android.icu.text.DateFormatSymbols
-import android.icu.util.Calendar
-import android.icu.util.JapaneseCalendar
-import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +7,6 @@ import dev.seabat.android.kotlinwebsocket.databinding.ListitemQiitaArticleBindin
 import dev.seabat.android.kotlinwebsocket.domain.entity.QiitaArticleEntity
 import dev.seabat.android.kotlinwebsocket.domain.entity.QiitaArticleListEntity
 import dev.seabat.android.kotlinwebsocket.utils.convertToJapaneseCalender
-import java.util.Date
-import java.util.Locale
 
 class QiitaArticleListAdapter(
     private val onListItemClick: (title: String, htmlUrl: String) -> Unit

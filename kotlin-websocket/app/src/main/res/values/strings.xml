@@ -2,8 +2,8 @@
     <string name="app_name">Kotlin WebSocket</string>
 
     <!-- トップページ -->
-    <string name="top_tab">Top</string>
-    <string name="top_title">Top Page</string>
+    <string name="server_tab">Server</string>
+    <string name="top_title">Client</string>
 
     <!-- リポジトリ詳細ページ -->
     <string name="repo_detail_title">Repository Detail Page</string>
@@ -13,7 +13,7 @@
     <string name="setting_version_key">バージョン: </string>
 
     <!-- Qiita ページ -->
-    <string name="qiita_tab">Qiita</string>
+    <string name="client_tab">Qiita</string>
     <string name="qiita_title">Qiita Page</string>
     <string name="qiita_title_recently">最近の記事</string>
     <string name="qiita_title_posted_date">投稿日: </string>

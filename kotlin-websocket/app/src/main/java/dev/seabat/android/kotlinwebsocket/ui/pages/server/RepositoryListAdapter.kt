@@ -1,4 +1,4 @@
-package dev.seabat.android.kotlinwebsocket.ui.pages.top
+package dev.seabat.android.kotlinwebsocket.ui.pages.server
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

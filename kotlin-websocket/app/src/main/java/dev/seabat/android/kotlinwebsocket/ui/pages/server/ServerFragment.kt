@@ -1,4 +1,4 @@
-package dev.seabat.android.kotlinwebsocket.ui.pages.top
+package dev.seabat.android.kotlinwebsocket.ui.pages.server
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,18 +14,17 @@ import dev.seabat.android.kotlinwebsocket.databinding.PageTopBinding
 import dev.seabat.android.kotlinwebsocket.ui.dialog.showSimpleErrorDialog
 
 @AndroidEntryPoint
-class TopFragment : Fragment(R.layout.page_top) {
+class ServerFragment : Fragment(R.layout.page_top) {
     companion object {
-        val TAG: String = TopFragment::class.java.simpleName
+        val TAG: String = ServerFragment::class.java.simpleName
     }
 
     private var binding: PageTopBinding? = null
-    private val viewModel: TopViewModel by viewModels()
+    private val viewModel: ServerViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = PageTopBinding.bind(view)
-        initAppBar()
         initView()
         initObserver()
         viewModel.loadRepositories()
@@ -38,7 +36,7 @@ class TopFragment : Fragment(R.layout.page_top) {
             layoutManager = LinearLayoutManager(requireContext())
             val decoration = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
             addItemDecoration(decoration)
-            adapter = RepositoryListAdapter(onListItemClick = this@TopFragment.onListItemClick)
+            adapter = RepositoryListAdapter(onListItemClick = {_, _ -> })
         }
 
         binding?.search?.setOnCloseListener {
@@ -93,44 +91,6 @@ class TopFragment : Fragment(R.layout.page_top) {
             }
         }
     }
-
-    private fun initAppBar() {
-        // NOTE: フラグメントが所有するアプリバーは onCreateOptionsMenu ではなく
-        //       ここで onViewCreated 等で inflate する
-        //       ref. https://developer.android.com/guide/fragments/appbar?hl=ja#fragment-inflate
-        binding?.toolbar?.inflateMenu(R.menu.top)
-        binding?.toolbar?.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_search -> {
-                    binding?.search?.visibility = View.VISIBLE
-                    binding?.toolbar?.visibility = View.GONE
-                    true
-                }
-
-                R.id.menu_refresh -> {
-                    viewModel.loadRepositories()
-                    true
-                }
-
-                R.id.menu_setting -> {
-                    val action = TopFragmentDirections.actionToSetting().apply { inVisibleBottomNav = true }
-                    findNavController().navigate(action)
-                    true
-                }
-
-                else -> false
-            }
-        }
-    }
-
-    private val onListItemClick: (fullName: String, htmlUrl: String) -> Unit =
-        { fullName, htmlUrl ->
-            val action = TopFragmentDirections.actionToRepoDetail().apply {
-                repoName = fullName
-                repoUrl = htmlUrl
-            }
-            this.findNavController().navigate(action)
-        }
 
     override fun onDestroyView() {
         super.onDestroyView()

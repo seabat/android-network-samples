@@ -1,6 +1,5 @@
-package dev.seabat.android.kotlinwebsocket.ui.pages.qiita
+package dev.seabat.android.kotlinwebsocket.ui.pages.client
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,8 +7,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,18 +15,16 @@ import dev.seabat.android.kotlinwebsocket.databinding.PageQiitaBinding
 import dev.seabat.android.kotlinwebsocket.ui.dialog.showSimpleErrorDialog
 import dev.seabat.android.kotlinwebsocket.utils.convertToJapaneseCalender
 import dev.seabat.android.kotlinwebsocket.utils.getDateFromBundle
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 @AndroidEntryPoint
-class QiitaFragment : Fragment(R.layout.page_qiita) {
+class ClientFragment : Fragment(R.layout.page_qiita) {
     companion object {
-        val TAG: String = QiitaFragment::class.java.simpleName
+        val TAG: String = ClientFragment::class.java.simpleName
     }
 
     private var binding: PageQiitaBinding? = null
-    private val viewModel: QiitaViewModel by viewModels()
+    private val viewModel: ClientViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,7 +40,9 @@ class QiitaFragment : Fragment(R.layout.page_qiita) {
             layoutManager = LinearLayoutManager(requireContext())
             val decoration = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
             addItemDecoration(decoration)
-            adapter = QiitaArticleListAdapter(onListItemClick = this@QiitaFragment.onListItemClick)
+            adapter = QiitaArticleListAdapter(onListItemClick = {_, _ ->
+                //Do nothing
+            })
         }
     }
 
@@ -63,18 +60,6 @@ class QiitaFragment : Fragment(R.layout.page_qiita) {
         // NOTE: フラグメントが所有するアプリバーは onCreateOptionsMenu ではなく
         //       ここで onViewCreated 等で inflate する
         //       ref. https://developer.android.com/guide/fragments/appbar?hl=ja#fragment-inflate
-        binding?.toolbar?.inflateMenu(R.menu.qiita)
-        binding?.toolbar?.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_search -> {
-                    val action = QiitaFragmentDirections.actionToQiitaSearch()
-                    this@QiitaFragment.findNavController().navigate(action)
-                    true
-                }
-
-                else -> false
-            }
-        }
     }
 
     private fun initObserver() {
@@ -127,16 +112,6 @@ class QiitaFragment : Fragment(R.layout.page_qiita) {
                 viewModel.loadQiitaArticles(getDateFromBundle(it, "start"))
             }
     }
-
-    private val onListItemClick: (title: String, htmlUrl: String) -> Unit =
-        { title, htmlUrl ->
-            // Qiita 詳細画面に遷移する
-            val action = QiitaFragmentDirections.actionToQiitaDetail().apply {
-                this.title = title
-                this.url = htmlUrl
-            }
-            this.findNavController().navigate(action)
-        }
 
     override fun onStart() {
         super.onStart()

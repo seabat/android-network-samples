@@ -1,4 +1,4 @@
-package dev.seabat.android.kotlinwebsocket.ui.pages.qiita
+package dev.seabat.android.kotlinwebsocket.ui.pages.client
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +17,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class QiitaViewModel @Inject constructor(
+class ClientViewModel @Inject constructor(
     private val fetchQiitaArticlesUseCase: FetchQiitaArticlesUseCaseContract,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
