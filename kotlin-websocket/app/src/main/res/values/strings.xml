@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Kotlin WebSocket</string>
+
+    <!-- トップページ -->
+    <string name="top_tab">Top</string>
+    <string name="top_title">Top Page</string>
+
+    <!-- リポジトリ詳細ページ -->
+    <string name="repo_detail_title">Repository Detail Page</string>
+
+    <!-- 設定 -->
+    <string name="setting_title">設定</string>
+    <string name="setting_version_key">バージョン: </string>
+
+    <!-- Qiita ページ -->
+    <string name="qiita_tab">Qiita</string>
+    <string name="qiita_title">Qiita Page</string>
+    <string name="qiita_title_recently">最近の記事</string>
+    <string name="qiita_title_posted_date">投稿日: </string>
+
+    <!-- Qiita 検索ページ -->
+    <string name="qiita_search_title">Qiita Search Page</string>
+    <string name="qiita_search_description">記事を検索する期間を指定してください。</string>
+    <string name="qiita_search_start_date">開始日</string>
+    <string name="qiita_search_end_date">終了日</string>
+    <string name="qiita_search_search">検索</string>
+
+
+    <!-- Qiita 詳細ページ -->
+    <string name="qiita_detail_title">Qiita Detail Page</string>
+    <string name="qiita_search_close">CLOSE</string>
+
+    <!-- 共通 -->
+    <string name="error_network_connection">インターネット接続に失敗しました。インターネット接続状態を確認してください。</string>
+    <string name="error_network_connecting">インターネット接続中にエラーが発生しました。インターネット接続状態を確認してください。</string>
+    <string name="error_network_bad_request">サーバーに送信するデータが不正です。再度やり直してください。</string>
+    <string name="error_network_authorized">認証に失敗しました。</string>
+    <string name="error_network_forbidden">アクセス権限がありません。</string>
+    <string name="error_network_not_found">アクセス先が見つかりません。</string>
+    <string name="error_network_unknown">通信中に不明なエラーが発生しました。</string>
+    <string name="error_network_internal_server">サーバー側で何かしらのエラーが発生しました。</string>
+    <string name="error_unknown">不明なエラーが発生しました。</string>
+</resources>

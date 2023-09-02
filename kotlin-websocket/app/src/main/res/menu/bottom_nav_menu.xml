@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_top"
+        android:icon="@drawable/github_mark"
+        android:title="@string/top_tab" />
+
+    <item
+        android:id="@+id/nav_qiita"
+        android:icon="@drawable/qiita"
+        android:title="@string/qiita_tab" />
+
+</menu>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_root"
+    app:startDestination="@id/nav_top">
+
+    <!-- トップ画面 -->
+    <fragment
+        android:id="@+id/nav_top"
+        android:name="dev.seabat.android.kotlinwebsocket.ui.pages.top.TopFragment"
+        android:label="@string/top_title"
+        tools:layout="@layout/page_top">
+        <action
+            android:id="@+id/action_to_repo_detail"
+            app:destination="@id/nav_repo_detail">
+            <argument
+                android:name="repoUrl"
+                app:argType="string"
+                android:defaultValue="https://github.com/" />
+            <argument
+                android:name="repoName"
+                app:argType="string"
+                android:defaultValue="GitHub" />
+        </action>
+        <action
+            android:id="@+id/action_to_setting"
+            app:destination="@id/nav_setting" >
+            <argument
+                android:name="inVisibleBottomNav"
+                app:argType="boolean"
+                android:defaultValue="true" />
+        </action>
+    </fragment>
+
+    <!-- リポジトリ詳細画面 -->
+    <fragment
+        android:id="@+id/nav_repo_detail"
+        android:name="dev.seabat.android.kotlinwebsocket.ui.pages.repodetail.RepoDetailFragment"
+        android:label="@string/repo_detail_title"
+        tools:layout="@layout/page_repo_detail">
+        <argument
+            android:name="repoUrl"
+            app:argType="string"
+            android:defaultValue="https://github.com/" />
+        <argument
+            android:name="repoName"
+            app:argType="string"
+            android:defaultValue="GitHub" />
+    </fragment>
+
+    <!-- 設定 -->
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="dev.seabat.android.kotlinwebsocket.ui.pages.setting.SettingFragment"
+        android:label="@string/setting_title"
+        tools:layout="@layout/page_setting">
+        <argument
+            android:name="inVisibleBottomNav"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </fragment>
+
+    <!-- Qiita 画面 -->
+    <fragment
+        android:id="@+id/nav_qiita"
+        android:name="dev.seabat.android.kotlinwebsocket.ui.pages.qiita.QiitaFragment"
+        android:label="@string/qiita_title"
+        tools:layout="@layout/page_qiita">
+        <action
+            android:id="@+id/action_to_qiita_search"
+            app:destination="@id/nav_qiita_search" />
+        <action
+            android:id="@+id/action_to_qiita_detail"
+            app:destination="@id/nav_qiita_detail">
+            <argument
+                android:name="url"
+                app:argType="string"
+                android:defaultValue="https://qiita.com/" />
+            <argument
+                android:name="title"
+                app:argType="string"
+                android:defaultValue="Qiita" />
+        </action>
+    </fragment>
+
+    <!-- Qiita 検索画面 -->
+    <dialog
+        android:id="@+id/nav_qiita_search"
+        android:name="dev.seabat.android.kotlinwebsocket.ui.pages.qiitasearch.QiitaSearchFragment"
+        android:label="@string/qiita_search_title"
+        tools:layout="@layout/page_qiita_search"></dialog>
+
+    <!-- Qiita 詳細画面 -->
+    <fragment
+        android:id="@+id/nav_qiita_detail"
+        android:name="dev.seabat.android.kotlinwebsocket.ui.pages.qiitadetail.QiitaDetailFragment"
+        android:label="@string/qiita_detail_title"
+        tools:layout="@layout/page_qiita_detail">
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="https://qiita.com/" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="Qiita" />
+    </fragment>
+</navigation>

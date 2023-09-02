@@ -1,0 +1,41 @@
+[versions]
+androidxCore = "1.7.0"
+androidGradlePlugin = "7.4.2"
+appcompat = "1.6.1"
+constraintlayout = "2.1.4"
+espressoCore = "3.5.1"
+extJnit = "1.1.5"
+glide = "4.15.1"
+hilt = "2.44"
+kotlin = "1.8.0"
+junit = "4.13.2"
+material = "1.9.0"
+navigation = "2.5.3"
+retrofit = "2.9.0"
+moshi = "1.15.0"
+secretsGradle = "2.0.1"
+
+[libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "extJnit" }
+com-github-bumptech-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+com-google-android-material = { module = "com.google.android.material:material", version.ref = "material" }
+com-google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+com-google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+com-google-android-libraries-mapsplatform-secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "secretsGradle" }
+com-squareup-retrofit2-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+com-squareup-moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+junit = { module = "junit:junit", version.ref = "junit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+secrets-gradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsGradle" }
